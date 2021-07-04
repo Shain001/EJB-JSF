@@ -12,5 +12,13 @@ Detailed function and Databse structure can be seen in diagrams listed following
 
 ## Functional Diagram
 
+![Functional Diagram.png](https://github.com/Shain001/EJB-JSF-Derby-Angular/blob/main/Functional%20Diagram.png?raw=true)
+
+
+
 ## ERD
+
+![ERD.png](https://github.com/Shain001/EJB-JSF-Derby-Angular/blob/main/ERD.png?raw=true)
+
+
 
