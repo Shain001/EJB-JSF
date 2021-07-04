@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title>#{titleController.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{titleController.pageTitle} - Customer Details
+                </div>
+            </div>
+
+            <h:form id="MyForm">
+                <table class="table table-bordered ">
+
+                    <tr>
+                        <td width ="150" valign="top">Id:</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "Id" >#{contactController.contact.conId}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width ="100" valign="top">phone: </td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "phone" value="#{contactController.contact.phone}"  required="false" 
+                                         validatorMessage="Please enter a valid phone number" converterMessage="phone should be a number" >
+                                         <f:convertNumber integerOnly="true"/>
+							<f:validateLongRange minimum="0000000000" maximum="9999999999" />
+                                         </h:inputText>  
+                             <h:message for="phone" class="#{!phone.valid ? 'label label-warning' : 'none'}" /> 
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width ="100" valign="top">title: </td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "title" value="#{contactController.contact.title}"  required="false"
+                                         >
+                                         
+							<f:validator validatorId="com.validate.test.titleValidator" />
+                                         </h:inputText>  
+                             <h:message for="title" class="#{!title.valid ? 'label label-warning' : 'none'}" /> 
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width ="100" valign="top">First Name: </td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "firstName" value="#{contactController.contact.firstName}"  required="false"
+                                         >
+                                         
+							
+                                         </h:inputText>  
+                             <h:message for="title" class="#{!firstName.valid ? 'label label-warning' : 'none'}" /> 
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width ="100" valign="top">Last Name: </td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "lastName" value="#{contactController.contact.lastName}"  required="false"
+                                         >
+                                         
+							
+                                         </h:inputText>  
+                             <h:message for="lastName" class="#{!lastName.valid ? 'label label-warning' : 'none'}" /> 
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width ="100" valign="top">Email: </td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "Email" value="#{contactController.contact.email}"  required="false" validatorMessage="email format not correct"
+                                         >
+                                         <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							
+                                         </h:inputText>  
+                             <h:message for="Email" class="#{!Email.valid ? 'label label-warning' : 'none'}" /> 
+                        </td>
+                    </tr>
+                    
+                </table>
+                
+                <h:commandButton id="save" value="Save" action="#{edit.editContact(contactController.contact)}"  class="btn btn-primary" >
+                    <f:param name="conID" value="#{contactController.conId+1}"/>
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="viewContact.xhtml"
+						class="btn btn-primary" />
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

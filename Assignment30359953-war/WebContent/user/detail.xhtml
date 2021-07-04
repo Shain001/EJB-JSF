@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title>#{titleController.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{titleController.pageTitle} - View Customer
+                </div>
+            </div>
+
+            <h:form id="MyForm">
+                <table class="table table-bordered ">
+                    <tr>
+                        <td width ="150" valign="top">Id:</td>
+
+                        <td valign="bottom">
+                            <h:outputLabel id = "Id" >#{customerController.customer.cusId}</h:outputLabel>    
+                           
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">CompanyName:</td>
+
+                        <td valign="bottom">
+                            <h:outputLabel id = "companyName" >#{customerController.customer.companyName}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">Industry:</td>
+
+                        <td valign="bottom">
+                            <h:outputLabel id = "Industry" >#{customerController.customer.industry.getIndustryName()}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width ="100" valign="top">PostCode:</td>
+
+                        <td valign="bottom">
+                            <h:outputLabel id = "postCode" >#{customerController.customer.postCode}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width ="100" valign="top">Country:</td>
+
+                        <td valign="bottom">
+                            <h:outputLabel id = "country" >#{customerController.customer.country}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">State:</td>
+
+                        <td valign="bottom">
+                            <h:outputLabel id = "state" >#{customerController.customer.state}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width ="100" valign="top">Street:</td>
+
+                        <td valign="bottom">
+                            <h:outputLabel id = "street" >#{customerController.customer.street}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td width ="100" valign="top">ManagedBy:</td>
+
+                        <td valign="bottom">
+                            <h:outputLabel id = "managedBy" >#{customerController.customer.managedBy.userName}</h:outputLabel>    
+                        </td>
+                    </tr>
+  					<tr>
+                        <td width ="100" valign="top">RegisterDate:</td>
+
+                        <td valign="bottom">
+                            <h:outputLabel id = "regesterDate" >#{customerController.customer.registerDate}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    
+                    
+			
+
+                </table> 
+                <table  class="table table-bordered ">
+                <tr>
+                    	<td width ="100" valign="top">Contact ID</td>
+
+                        <td width ="100" valign="top">Contact Name</td>
+                    </tr>
+                    
+                    <ui:repeat id="Myrepeat" value="#{customerController.contacts}"  var="contacts" varStatus="status">
+                    	<tr onclick="document.getElementById('MyForm:principle').value = document.getElementById('MyForm:Myrepeat:#{status.index}:outPrice').textContent;
+                            document.getElementById('MyForm:selectedId').value = document.getElementById('MyForm:Myrepeat:#{status.index}:MainPropertyID').textContent;"> 
+                    		<td>
+                    			
+                                <h:outputText value="#{contacts.conId}" id="conID" /> 
+
+                            </td>
+                            <td>
+                            	<h:outputText value="#{contacts.firstName}" id="firstName" /> 
+                    		</td>
+                    	</tr>
+                    </ui:repeat>
+                </table>  
+                <div>
+                	<h:link id="close" value="Close" outcome="view.xhtml"
+						class="btn btn-primary" />
+						<br>
+						</br>
+					<h:link id="addContact" value="Add Contact" outcome="createContact.xhtml" class="btn btn-primary" />
+				</div>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title>#{titleController.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{titleController.pageTitle} - Contact  List
+                </div>
+            </div>
+            <div>
+		<table>
+		<tr>
+			<td>
+				Navigation: 
+				<h:link value="Menue | " outcome="index.xhtml"></h:link>               	
+				<h:link value="View Customers | " outcome="view.xhtml"></h:link>
+				<h:link value="Add Customer | " outcome="createCustomer.xhtml"></h:link>
+				<h:link value="Add User | " outcome="addUser.xhtml"></h:link>
+				<h:link value="Manage User | " outcome="manageUser.xhtml"></h:link>    
+				<h:link value="Manage Industry | " outcome="manageIndustry.xhtml"></h:link>    
+				<h:link value="Change Password " outcome="changePassWd.xhtml"></h:link>         	
+			</td>
+		</tr>
+		</table>
+		</div>
+
+            <h:form id="MyForm">
+                <table class="table table-bordered table-striped">
+                    <!-- For each property in properties ArrayList... --> 
+                    <tr>
+                    		<td> 
+                                <h:outputLabel id="conID" value="conId"  />
+                            </td>
+                    		<td> 
+                                <h:outputLabel id="title" value="Title"  />
+                            </td>
+                            <td> 
+                                <h:outputLabel id="conName" value="Contact Name"  />
+                            </td>
+                            <td> 
+                                <h:outputLabel id="companyName" value="Company Name"  />
+                            </td>
+                            <td> 
+                                <h:outputLabel id="phone" value="Phone"  />
+                            </td>
+                            <td> 
+                                <h:outputLabel id="email" value="email"  />
+                            </td>
+                            <td> 
+                                <h:outputLabel id="opreation" value="opreation"  />
+                            </td>
+          					
+                            
+                            
+                     </tr>
+                    
+                    <ui:repeat id="Myrepeat" value="#{customerApplication.contacts}"  var="customers" varStatus="status"> 
+                        
+                        <tr onclick="document.getElementById('MyForm:principle').value = document.getElementById('MyForm:Myrepeat:#{status.index}:outPrice').textContent"> 
+                        	<td>
+                                <h:outputText value="#{customerApplication.contacts.get(status.index).conId}" id="conID" /> 
+                                
+                            </td>
+                            <td>
+                                <h:outputText value="#{customerApplication.contacts.get(status.index).title}" id="conTitle" /> 
+                                
+                            </td>
+                            <td>
+                                <h:outputText value="#{customerApplication.contacts.get(status.index).firstName}" id="conName" /> 
+                                
+                            </td>
+                            
+                            <td>
+                                <h:outputText value="#{customerApplication.contacts.get(status.index).company.companyName}" id="conCompany" /> 
+                                
+                            </td>
+                            <td>
+                                <h:outputText value="#{customerApplication.contacts.get(status.index).phone}" id="conPhone" /> 
+                                
+                            </td>
+                            <td>
+                                <h:outputText value="#{customerApplication.contacts.get(status.index).email}" id="conEmail" /> 
+                                
+                            </td>
+                            	
+                            <td>
+                            <h:link value="Edit" outcome="editContact.xhtml">
+                                <!-- pass the parameter to next page, the param name is propertyID, and the value is index + 1.
+                                  You can get the value from next page using the indexController -->
+                                  <f:param name="conID" value="#{status.index + 1}"/>
+                                </h:link>
+                            <h:commandLink value=" | Delete" action="#{edit.removeContact(customerApplication.contacts.get(status.index).conId)}" >
+                                </h:commandLink>
+                            </td>
+                            
+                            
+                            
+                            
+                        </tr> 
+
+                    </ui:repeat> 
+
+                </table>
+                
+                <div>
+                    <h:commandButton value="ADD" action="createCustomer.xhtml" class="btn btn-primary" />
+                
+          
+                </div>
+                <div>
+                    <h:inputText value="#{search.conId}" id="searchById" required="false" onchange ="if (document.getElementById('MyForm:searchById').value.trim() == '') {document.getElementById('MyForm:searchById').value = 0;} "   /> 
+                    <h:commandButton id="searchId" value="Search Contact by Id" action="#{search.searchContactById(search.conId)}" class="btn btn-primary" >
+                        <f:param name="cusID" value="#{status.index + 1}"/>
+                    </h:commandButton>
+                    <h:inputText value="#{search.cusName}" id="searchByName" required="false" onchange ="if (document.getElementById('MyForm:searchById').value.trim() == '') {document.getElementById('MyForm:searchById').value = 0;} "   /> 
+                    <h:commandButton id="searchConByCompany" value="Search Contact by Company" action="#{search.searchContactByCompany(search.cusName)}" class="btn btn-primary" >
+                        <f:param name="industry" value="#{status.index + 1}"/>
+                    </h:commandButton>
+                    <h:commandButton class="btn btn-primary"  value="View All" >
+                     <f:ajax execute = "viewAll" listener = "#{customerApplication.searchAllContact()}" render = "@form"/>
+                     </h:commandButton>
+                </div>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

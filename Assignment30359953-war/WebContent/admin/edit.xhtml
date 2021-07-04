@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title>#{titleController.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{titleController.pageTitle} - Customer Details
+                </div>
+            </div>
+
+            <h:form id="MyForm">
+                <table class="table table-bordered ">
+
+                    <tr>
+                        <td width ="150" valign="top">Id:</td>
+                        
+                        <td valign="bottom">
+                            <h:outputLabel id = "Id" >#{customerController.customer.cusId}</h:outputLabel>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">industry: </td>
+                       
+                        <td valign="bottom">
+                            
+                            <h:selectOneListbox value="#{customerController.indusName}" size="3" required = "true" requiredMessage = "Please choose the industry">
+                                <f:selectItems value="#{customerApplication.getIndustryList()}" />   
+                                </h:selectOneListbox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">postCode: </td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "postCode" value="#{customerController.customer.postCode}"  required="false"
+                                         validatorMessage="Please enter a postcode between 0200 and 4700" converterMessage="postcode should be a number">
+                                         
+                                         </h:inputText>  
+                             <h:message for="postCode" class="#{!postCode.valid ? 'label label-warning' : 'none'}" /> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">country: </td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "country" value="#{customerController.customer.country}"  required="false">
+                                <f:validator validatorId="com.validate.test.stringOnlyValidator" />
+                            </h:inputText>    
+                            <h:message for="country" class="#{!country.valid ? 'label label-warning' : 'none'}" /> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">State: </td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "state" value="#{customerController.customer.state}"  required="false">
+                            <f:validator validatorId="com.validate.test.stringOnlyValidator" />
+                            </h:inputText>    
+                            <h:message for="state" class="#{!state.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width ="100" valign="top">companyName: </td>
+                        
+                        <td valign="bottom">
+                            <h:inputText id = "companyName" value="#{customerController.customer.companyName}"  required="false"
+                                      
+                                                 requiredMessage="Please enter a companyName. "></h:inputText>
+                             <h:message for="companyName" class="#{!companyName.valid ? 'label label-warning' : 'none'}" />   
+                        </td>
+                    </tr>
+                    
+                </table>
+                
+                <h:commandButton id="save" value="Save" action="#{edit.editCustomer(customerController.customer,customerController.indusName)}"  class="btn btn-primary" >
+                    <f:param name="cusID" value="#{customerController.cusId+1}"/>
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="view.xhtml"
+						class="btn btn-primary" />
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

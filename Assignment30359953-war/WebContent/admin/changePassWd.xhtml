@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title>#{titleController.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{titleController.pageTitle} - Change Password
+                </div>
+            </div>
+			<div>
+		<table>
+		<tr>
+			<td>
+				Navigation: 
+				<h:link value="Menue | " outcome="index.xhtml"></h:link>               	
+
+				
+				<h:link value="View Customers | " outcome="view.xhtml"></h:link>
+				
+				<h:link value="View Contacts | " outcome="viewContact.xhtml"></h:link> 
+				<h:link value="Add Customer | " outcome="createCustomer.xhtml"></h:link>
+				 <h:link value="Add Contact | " outcome="createContact.xhtml"></h:link> 
+				 <h:link value="Add User | " outcome="addUser.xhtml"></h:link> 
+				<h:link value="Manage User |" outcome="manageUser.xhtml"></h:link>    
+				        	<h:link value="Manage Industry  " outcome="manageIndustry.xhtml"></h:link>
+			</td>
+		</tr>
+		</table>
+		</div>
+            <h:form id="MyForm">
+                <table class="table table-bordered ">
+           
+
+                    <tr>
+                    	
+                    	<td valign="bottom">
+                    	<h:outputLabel value="new password: " />
+                        <h:inputText id = "passwd" value="#{changePasswd.passwd}"  required="true" title = "New Password"
+                                         >
+                         <f:validator validatorId="com.validate.test.passwdValidator" />                
+                                         </h:inputText>
+                        <h:message for="passwd" class="#{!passwd.valid ? 'label label-warning' : 'none'}" />
+                        
+                        </td>
+                    </tr>
+                    
+                </table>
+                
+                <h:commandButton id="submit" value="submit" action="#{changePasswd.changePsswd(changePasswd.passwd)}"  class="btn btn-primary" >
+                    
+                </h:commandButton>
+                
+            </h:form>
+        </div>
+    </h:body>
+</html>

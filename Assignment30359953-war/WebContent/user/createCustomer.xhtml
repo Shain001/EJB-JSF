@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+        <title>#{titleController.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{titleController.pageTitle} - Add Customer
+                </div>
+            </div>
+            <div>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Create"/></h1>
+                
+                <table class="table table-bordered ">
+             
+                    <tr class="#{!country.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="country" for="country" />
+                        </td>
+                        <td>
+                            <h:inputText id="country" value="#{customer.country}" title="country" required="true" requiredMessage="Please enter the country!" pt:placeholder="Australia">
+                            <f:validator validatorId="com.validate.test.stringOnlyValidator" />
+                            </h:inputText>
+                            <br/>
+                            <h:message for="country" class="#{!country.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    
+                    <tr class="#{!street.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="street" for="street" />
+                        </td>
+                        <td>
+                            <h:inputText id="street" value="#{customer.street}" title="street" required="true" requiredMessage="Please enter the street!" pt:placeholder="BlackBurnRd"/>
+                        	<br/>
+                            <h:message for="street" class="#{!street.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    
+                    <tr class="#{!state.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="state" for="state"/>
+                        </td>
+                        <td>
+                            <h:inputText id="state" value="#{customer.state}" title="state" size="3" required="true" requiredMessage="Please enter the state!" pt:placeholder="VIC">
+                            <f:validator validatorId="com.validate.test.stringOnlyValidator" />
+                            </h:inputText>
+                            <br/>
+                            <h:message for="state" class="#{!state.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    <tr class="#{!postcode.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="postcode" for="postcode" />
+                        </td>
+                        <td>
+                            <h:inputText id="postcode" value="#{customer.postCode}" title="postcode" required="true" requiredMessage="Please enter the postcode!" validatorMessage="Please enter a postcode between 0200 and 4700" converterMessage="Please enter a number" pt:placeholder="3145">
+	                            <f:convertNumber integerOnly="true"/>
+								<f:validateLongRange minimum="200" maximum="4700" /> 
+							</h:inputText>
+							<br/>
+							<h:message for="postcode" class="#{!postcode.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+
+                   <tr class="#{!companyName.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="companyName" for="companyName"/>
+                        </td>
+                        <td>
+                            <h:inputText id="companyName" value="#{customer.companyName}" title="companyName" size="20" required="true" requiredMessage="Please enter the companyName!" pt:placeholder="Monash"/>
+                            <br/>
+                            <h:message for="companyName" class="#{!companyName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <h:outputLabel value="industry" for="industry"/>
+                        
+                        <h:selectOneListbox value="#{customer.industry}" size="3" required = "true" requiredMessage = "Please choose the industry">
+                                <f:selectItems value="#{customerApplication.getIndustryList()}" />
+                                
+                            </h:selectOneListbox>
+                            
+                            </td>
+                    
+                    </tr>
+                    
+                   
+                    
+                </table>
+                
+                <h:commandButton id="submit" value="Submit" action="#{addCustomer.addCustomer(customer)}" class="btn btn-primary" >
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="view.xhtml"
+						class="btn btn-primary" />
+            	
+            </h:form>
+			
+        </f:view>
+            </div>
+        </div>
+       
+    </h:body>
+</html>
+

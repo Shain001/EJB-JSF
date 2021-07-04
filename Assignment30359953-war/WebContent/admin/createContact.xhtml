@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+        <title>#{titleController.pageTitle}</title> 
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-brand">
+                    #{titleController.pageTitle} - Add Contact
+                </div>
+            </div>
+            <div>
+		<table>
+		<tr>
+			<td>
+				Navigation: 
+				<h:link value="Menue | " outcome="index.xhtml"></h:link>               	
+
+				<h:link value="View Customers | " outcome="view.xhtml"></h:link>
+				<h:link value="View Contacts | " outcome="viewContact.xhtml"></h:link> 
+				<h:link value="Add Customer | " outcome="createCustomer.xhtml"></h:link>
+				 
+				 <h:link value="Add User | " outcome="addUser.xhtml"></h:link> 
+				<h:link value="Manage User" outcome="manageUser.xhtml"></h:link> 
+				<h:link value="Manage Industry | " outcome="manageIndustry.xhtml"></h:link>   
+				<h:link value="Change Passwd | " outcome="changePassWd.xhtml"></h:link> 
+				        	
+			</td>
+		</tr>
+		</table>
+		</div>
+            <div>
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Create"/></h1>
+                
+                <table class="table table-bordered ">
+                
+      				<tr class="#{!firstName.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="firstName" for="firstName" />
+                        </td>
+                        <td>
+                            <h:inputText id="firstName" value="#{contact.firstName}" title="firstName" required="true" requiredMessage="Please enter the firstName!" pt:placeholder="Shenyi">
+                           
+                            </h:inputText>
+                            <br/>
+                            <h:message for="firstName" class="#{!firstName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    <tr class="#{!lastName.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="lastName" for="lastName" />
+                        </td>
+                        <td>
+                            <h:inputText id="lastName" value="#{contact.lastName}" title="lastName" required="true" requiredMessage="Please enter the lastName!" pt:placeholder="Zhang"/>
+                            <br/>
+                            <h:message for="lastName" class="#{!lastName.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+
+                    <tr class="#{!phone.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="phone" for="phone" />
+                        </td>
+                        <td>
+                            <h:inputText id="phone" value="#{contact.phone}" title="phone" required="true" requiredMessage="Please enter the phone!" converterMessage="Please enter a number" validatorMessage = "please enter 10 digits" pt:placeholder="0406958487">
+                            <f:convertNumber integerOnly="true"/>
+							<f:validateLongRange minimum="0000000000" maximum="9999999999" />
+                            </h:inputText>
+                            <br/>
+                            <h:message for="phone" class="#{!phone.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    <tr class="#{!title.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="title" for="title" />
+                        </td>
+                        <td>
+                            <h:inputText id="title" value="#{contact.title}" title="title" required="true" requiredMessage="Please enter the title!" pt:placeholder="Mr/Mrs/Miss/Doctor">
+                            <f:validator validatorId="com.validate.test.titleValidator" />
+                            </h:inputText>
+                            <br/>
+                            <h:message for="title" class="#{!title.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    <tr class="#{!email.valid ? 'has-error' : 'none'}">
+                        <td>
+                            <h:outputLabel value="email" for="email" />
+                        </td>
+                        <td>
+                            <h:inputText id="email" value="#{contact.email}" title="email" required="true" requiredMessage="Please enter the email!" validatorMessage= "email format invalidate" pt:placeholder="sample@sample.com">
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                            </h:inputText>
+                            <br/>
+                            <h:message for="email" class="#{!email.valid ? 'label label-warning' : 'none'}" />
+                        </td>
+                    
+                    </tr>
+                    <tr>
+                    <td>
+                    <h:selectOneListbox value="#{contact.company}" size="3" >
+                                <f:selectItems value="#{customerApplication.getCustomerSelectByName()}" />
+                                
+                            </h:selectOneListbox>
+                            </td>
+                    </tr>
+                    
+                    
+                    
+                    
+              
+                    
+                </table>
+                
+                <h:commandButton id="submit" value="Submit" action="#{addContact.addContact(contact)}" class="btn btn-primary" >
+                </h:commandButton>
+                <h:link id="close" value="Close" outcome="viewContact.xhtml"
+						class="btn btn-primary" />
+						
+            	
+            </h:form>
+			
+        </f:view>
+            </div>
+        </div>
+       
+    </h:body>
+</html>
+
